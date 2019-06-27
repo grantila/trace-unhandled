@@ -1,0 +1,21 @@
+language: node_js
+cache:
+  directories:
+    - ~/.npm
+notifications:
+  email: false
+node_js:
+  - '12'
+  - '11'
+  - '10'
+  - '9'
+  - '8'
+  - '7'
+  - '6'
+after_success:
+  - npm run travis-deploy-once "npm run semantic-release"
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+after_script:
+  - "test -e ./coverage/lcov.info && cat ./coverage/lcov.info | node_modules/.bin/coveralls"

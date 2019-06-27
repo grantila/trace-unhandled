@@ -1,0 +1,55 @@
+{
+  "name": "trace-unhandled",
+  "version": "0.0.0-development",
+  "description": "Much better tracing of unhandled promise rejections in JavaScript",
+  "author": "Gustaf Räntilä",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grantila/trace-unhandled/issues"
+  },
+  "homepage": "https://github.com/grantila/trace-unhandled#readme",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "engines": {
+    "node": ">=6"
+  },
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "register.js"
+  ],
+  "scripts": {
+    "test": "node --expose-gc node_modules/.bin/jest --coverage",
+    "travis-deploy-once": "travis-deploy-once",
+    "semantic-release": "semantic-release",
+    "cz": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grantila/trace-unhandled"
+  },
+  "keywords": [
+    "trace",
+    "unhandled",
+    "rejection",
+    "promise",
+    "stack",
+    "stacktrace"
+  ],
+  "devDependencies": {
+    "@types/jest": "^20",
+    "@types/node": "^12",
+    "already": "^1.8.0",
+    "commitizen": "^3",
+    "coveralls": "^3",
+    "cz-conventional-changelog": "^2",
+    "jest": "^20",
+    "semantic-release": "^15.13.18",
+    "travis-deploy-once": "^5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
