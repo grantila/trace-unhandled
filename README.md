@@ -17,7 +17,7 @@ When this happens, it's not always obvious what promise is unhandled. The error 
 
 `trace-unhandled` changes this. It keeps track of promises and when an *unhandled promise rejection* is logged, the location of both the error object **and** the promise is logged. This makes it a lot easier to find the bug.
 
-**This package is not intended to be used in production, only to aid spotting bugs**
+**This package is not intended to be used in production, only to aid locating bugs**
 
 # API
 
