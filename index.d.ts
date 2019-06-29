@@ -1,3 +1,1 @@
-module "trace-unhandled" {
-	export function register( ): void;
-}
+export function register( ): void;
