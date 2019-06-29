@@ -27,7 +27,7 @@ function splitLines( lines )
 
 function cutColumn( line )
 {
-	const m = line.match( /(.*:\d+):\d+$/ );
+	const m = line.match( /(.*:\d+):\d+\)?$/ );
 	if ( !m )
 		return line;
 	return m[ 1 ];
@@ -35,7 +35,7 @@ function cutColumn( line )
 
 function cutLocation( line )
 {
-	const m = line.match( /(.*):\d+:\d+$/ );
+	const m = line.match( /(.*):\d+:\d+\)?$/ );
 	if ( !m )
 		return line;
 	return m[ 1 ];
