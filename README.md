@@ -19,7 +19,18 @@ When this happens, it's not always obvious what promise is unhandled. The error 
 
 **This package is not intended to be used in production, only to aid locating bugs**
 
-# API
+# Usage
+
+## As a standalone program
+
+`trace-unhandled` exports a program which can run JavaScript files and shebang scripts. Instead of running your program as `node index.js` you can do `trace-unhandled index.js` as long as `trace-unhandled` is globally installed.
+
+You can also use `npx`:
+
+`npx trace-unhandled index.js`
+
+
+## Programatically - API
 
 ```ts
 require( 'trace-unhandled/register' ); // As early as possible
@@ -33,6 +44,20 @@ const { register } = require( 'trace-unhandled' );
 // ... whenever you want to start tracing
 register( );
 ```
+
+## Use in unit tests
+
+To use this package when running `jest`, install the package and configure jest with the following setup:
+
+```js
+{
+  setupFiles: [
+    "trace-unhandled/register"
+  ]
+}
+```
+
+The tests will now log much better information about unhandled promise rejections.
 
 
 [npm-image]: https://img.shields.io/npm/v/trace-unhandled.svg
