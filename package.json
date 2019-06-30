@@ -37,13 +37,13 @@
     "stacktrace"
   ],
   "devDependencies": {
-    "@types/jest": "^20",
+    "@types/jest": "^24.0.15",
     "@types/node": "^12",
     "already": "^1.8.0",
     "commitizen": "^3",
     "coveralls": "^3",
     "cz-conventional-changelog": "^2",
-    "jest": "^20",
+    "jest": "^24.8.0",
     "semantic-release": "^15.13.18",
     "travis-deploy-once": "^5"
   },
