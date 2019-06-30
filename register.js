@@ -66,19 +66,36 @@ process.on( "unhandledRejection", ( reason, promise ) =>
 	);
 } );
 
+const state = { resolve: null, reject: null };
+
 class TraceablePromise extends Promise
 {
 	constructor( executor )
 	{
 		super( wrappedExecutor );
 
-		function wrappedExecutor( ...args )
+		function wrappedExecutor( resolve, reject )
 		{
-			return executor( ...args );
+			state.resolve = resolve;
+			state.reject = reject;
 		}
+
+		const resolve = state.resolve;
+		const reject = state.reject;
+		state.resolve = null;
+		state.reject = null;
 
 		const err = new Error( "Non-failing tracing error" );
 		this.__tracedError = err;
+
+		try
+		{
+			executor( resolve, reject );
+		}
+		catch ( err )
+		{
+			reject( err );
+		}
 	}
 }
 
