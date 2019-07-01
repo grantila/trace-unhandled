@@ -11,18 +11,23 @@
     "trace-unhandled": "bin.js"
   },
   "homepage": "https://github.com/grantila/trace-unhandled#readme",
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "browser": "./browser.js",
   "engines": {
     "node": ">=8"
   },
   "files": [
-    "index.js",
-    "index.d.ts",
+    "dist",
+    "browser.js",
     "register.js",
     "bin.js"
   ],
   "scripts": {
+    "build:node": "node_modules/.bin/rimraf dist && node_modules/.bin/tsc -p .",
+    "build:web": "node_modules/.bin/rimraf dist-web && node_modules/.bin/tsc -p tsconfig.rollup.json",
+    "build:rollup": "rm browser.js && node_modules/.bin/rollup dist-web/web/register-web.js --file browser.js --format iife",
+    "build": "concurrently 'yarn build:node' 'yarn build:web' && yarn build:rollup",
     "test": "node --expose-gc node_modules/.bin/jest --coverage",
     "travis-deploy-once": "travis-deploy-once",
     "semantic-release": "semantic-release",
@@ -48,11 +53,15 @@
     "@types/node": "^12",
     "already": "^1.8.0",
     "commitizen": "^3",
+    "concurrently": "^4.1.1",
     "coveralls": "^3",
     "cz-conventional-changelog": "^2",
     "jest": "^20",
+    "rimraf": "^2.6.3",
+    "rollup": "^1.16.3",
     "semantic-release": "^15.13.18",
-    "travis-deploy-once": "^5"
+    "travis-deploy-once": "^5",
+    "typescript": "^3.5.2"
   },
   "config": {
     "commitizen": {

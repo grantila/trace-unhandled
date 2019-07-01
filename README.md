@@ -13,13 +13,89 @@ Node.js warns on unhandled promise rejections. You might have seen:
 (node:1234) UnhandledPromiseRejectionWarning
 ```
 
-When this happens, it's not always obvious what promise is unhandled. The error displayed in the stack trace is the trace to the *error object construction*, not the construction of the promise which left it dangling. It might have travelled through various asynchronous chains before it got to an unhandled promise chain.
+When this happens, it's not always obvious what promise is unhandled. The error displayed in the stacktrace is the trace to the *error object construction*, not the construction of the promise which left it dangling. It might have travelled through various asynchronous chains before it got to an unhandled promise chain.
 
 `trace-unhandled` changes this. It keeps track of promises and when an *unhandled promise rejection* is logged, the location of both the error object **and** the promise is logged. This makes it a lot easier to find the bug.
 
 **This package is not intended to be used in production, only to aid locating bugs**
 
+# Why
+
+Consider the following code which creates an error (on line 1) and rejects a promise (on line 3) and "forgets" to catch it on line 9 (the last line). This is an **incredibly** simple example, and in real life, this would span over a lot of files and a lot of complexity.
+
+```ts
+const err = new Error( "foo" );
+function b( ) {
+	return Promise.reject( err );
+}
+function a( ) {
+	return b( );
+}
+const foo = a( );
+foo.then( ( ) => { } );
+```
+
+Without `trace-unhandled`, you would get something like:
+
+```
+(node:1234) UnhandledPromiseRejectionWarning: Error: foo
+    at Object.<anonymous> (/my/directory/test.js:1:13)
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:787:10)
+    at Module.load (internal/modules/cjs/loader.js:643:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:839:10)
+    at internal/main/run_main_module.js:17:11
+```
+
+This is the output of Node.js. You'll see the stacktrace up to the point of the **Error** `err`, but that's rather irrelevant. What you want to know is where the promise was used leaving a rejection unhandled (i.e. a missing `catch()`). With `trace-unhandled` this is exactly what you get, including the Error construction location:
+
+```
+(node:1234) UnhandledPromiseRejectionWarning
+[ Stacktrace altered by https://github.com/grantila/trace-unhandled ]
+Error: foo
+    ==== Promise at: ==================
+    at Promise.then (<anonymous>)
+    at Object.<anonymous> (/my/directory/test.js:9:5)
+
+    ==== Error at: ====================
+    at Object.<anonymous> (/my/directory/test.js:1:13)
+
+    ==== Shared trace: ================
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+	... more lines below ...
+```
+
+We *"used"* the promise by appending another `.then()` to it. This means that the promise was actually used, and that the new promise should handle rejections. If we delete the last line (line 9), we see where the promise was last *"used"*:
+
+```
+(node:1234) UnhandledPromiseRejectionWarning
+[ Stacktrace altered by https://github.com/grantila/trace-unhandled ]
+Error: foo
+    ==== Promise at: ==================
+    at b (/my/directory/test.js:3:17)
+    at a (/my/directory/test.js:6:9)
+    at Object.<anonymous> (/my/directory/test.js:8:13)
+
+    ==== Error at: ====================
+    at Object.<anonymous> (/my/directory/test.js:1:13)
+
+    ==== Shared trace: ================
+    at Module._compile (internal/modules/cjs/loader.js:776:30)
+	... more lines below ...
+```
+
+Both these examples show **clearly** where the *promise* is left unhandled, and not only where the Error object is constructed.
+
+
 # Usage
+
+`trace-unhandled` can be used in 4 ways.
+
+ * As a standalone program to bootstrap a Node.js app
+ * From a CDN directly to a browser
+ * Programmatically from JavaScript (either for Node.js or the web using a bundler)
+ * In unit tests
 
 ## As a standalone program
 
@@ -28,6 +104,13 @@ When this happens, it's not always obvious what promise is unhandled. The error 
 You can also use `npx`:
 
 `npx trace-unhandled index.js`
+
+
+# In a website
+
+```html
+<head><script src="https://cdn.jsdelivr.net/npm/trace-unhandled@latest/browser.js"></script></head>
+```
 
 
 ## Programatically - API
@@ -45,6 +128,7 @@ const { register } = require( 'trace-unhandled' );
 register( );
 ```
 
+
 ## Use in unit tests
 
 To use this package when running `jest`, install the package and configure jest with the following setup:
@@ -57,7 +141,7 @@ To use this package when running `jest`, install the package and configure jest 
 }
 ```
 
-The tests will now log much better information about unhandled promise rejections.
+For `mocha` you can use `--require node_modules/trace-unhandled/register.js`.
 
 
 [npm-image]: https://img.shields.io/npm/v/trace-unhandled.svg

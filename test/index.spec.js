@@ -1,5 +1,5 @@
 
-const index = require( './' );
+const index = require( '../dist/index' );
 
 describe( "register", ( ) =>
 {
@@ -13,9 +13,9 @@ describe( "register", ( ) =>
 	it( "should load 'register'", ( ) =>
 	{
 		const spy = jest.fn( );
-		jest.doMock( './register.js', spy );
+		jest.doMock( '../dist/lib/register.js', spy );
 		index.register( );
 		expect( spy.mock.calls.length ).toBe( 1 );
-		jest.dontMock( './register.js' );
+		jest.dontMock( '../dist/lib/register.js' );
 	} );
 } );

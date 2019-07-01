@@ -1,4 +1,5 @@
 module.exports = {
-  testEnvironment: 'node',
-  coverageReporters: ['lcov', 'text', 'html'],
+  testEnvironment: "node",
+  testMatch: ['<rootDir>/test/**/*.spec.js'],
+  coverageReporters: ["lcov", "text", "html"],
 };

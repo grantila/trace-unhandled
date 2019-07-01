@@ -1,6 +1,6 @@
 
 const { Finally, Try, delay } = require( 'already' );
-require( './register' );
+require( '../register' );
 
 const withConsoleSpy = fn => async ( ) =>
 {

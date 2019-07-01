@@ -1,3 +1,6 @@
 coverage/
 node_modules/
+dist/
+dist-web/
 yarn.lock
+browser.js
