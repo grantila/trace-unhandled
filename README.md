@@ -66,7 +66,7 @@ Error: foo
 	... more lines below ...
 ```
 
-We *"used"* the promise by appending another `.then()` to it. This means that the promise was actually used, and that the new promise should handle rejections. If we delete the last line (line 9), we see where the promise was last *"used"*:
+We *"used"* the promise by appending another `.then()` to it. This means that the promise was actually *"handled"*, and that the new promise should handle rejections. If we delete the last line (line 9), we see where the promise was last *"used"*:
 
 ```
 (node:1234) UnhandledPromiseRejectionWarning
@@ -106,7 +106,7 @@ You can also use `npx`:
 `npx trace-unhandled index.js`
 
 
-# In a website
+## In a website
 
 ```html
 <head><script src="https://cdn.jsdelivr.net/npm/trace-unhandled@latest/browser.js"></script></head>

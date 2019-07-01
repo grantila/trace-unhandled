@@ -15,5 +15,7 @@ after_success:
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
+before_script:
+  - yarn build
 after_script:
   - "test -e ./coverage/lcov.info && cat ./coverage/lcov.info | node_modules/.bin/coveralls"
