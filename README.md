@@ -2,20 +2,19 @@
 [![downloads][downloads-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![coverage status][coverage-image]][coverage-url]
-[![greenkeeper badge][greenkeeper-image]][greenkeeper-url]
 [![Language grade: JavaScript][lgtm-image]][lgtm-url]
 
 # trace-unhandled
 
-Node.js warns on unhandled promise rejections. You might have seen:
+Node.js and browsers warn on unhandled promise rejections. You might have seen:
 
 ```
 (node:1234) UnhandledPromiseRejectionWarning
 ```
 
-When this happens, it's not always obvious what promise is unhandled. The error displayed in the stacktrace is the trace to the *error object construction*, not the construction of the promise which left it dangling. It might have travelled through various asynchronous chains before it got to an unhandled promise chain.
+When this happens, it's not always obvious what promise is unhandled. The error stacktrace will tell where the *error object construction* is, not the construction of the promise which left it dangling. It might have travelled through various asynchronous chains before it got to an unhandled promise chain.
 
-`trace-unhandled` changes this. It keeps track of promises and when an *unhandled promise rejection* is logged, the location of both the error object **and** the promise is logged. This makes it a lot easier to find the bug.
+`trace-unhandled` helps with this. It keeps track of promises and when an *unhandled promise rejection* is logged, the location of both the error object **and** the promise is logged. This makes it a lot easier to find the bug.
 
 **This package is not intended to be used in production, only to aid locating bugs**
 
@@ -23,16 +22,16 @@ When this happens, it's not always obvious what promise is unhandled. The error 
 
 Consider the following code which creates an error (on line 1) and rejects a promise (on line 3) and "forgets" to catch it on line 9 (the last line). This is an **incredibly** simple example, and in real life, this would span over a lot of files and a lot of complexity.
 
-```ts
-const err = new Error( "foo" );
-function b( ) {
-	return Promise.reject( err );
-}
-function a( ) {
-	return b( );
-}
-const foo = a( );
-foo.then( ( ) => { } );
+```ts {.line-numbers}
+1. const err = new Error( "foo" );
+2. function b( ) {
+3.	return Promise.reject( err );
+4. }
+5. function a( ) {
+6.	return b( );
+7. }
+8. const foo = a( );
+9. foo.then( ( ) => { } );
 ```
 
 Without `trace-unhandled`, you would get something like:
@@ -56,7 +55,7 @@ This is the output of Node.js. You'll see the stacktrace up to the point of the 
 Error: foo
     ==== Promise at: ==================
     at Promise.then (<anonymous>)
-    at Object.<anonymous> (/my/directory/test.js:9:5)
+    at Object.<anonymous> (/my/directory/test.js:9:5)  👈
 
     ==== Error at: ====================
     at Object.<anonymous> (/my/directory/test.js:1:13)
@@ -73,9 +72,9 @@ We *"used"* the promise by appending another `.then()` to it. This means that th
 [ Stacktrace altered by https://github.com/grantila/trace-unhandled ]
 Error: foo
     ==== Promise at: ==================
-    at b (/my/directory/test.js:3:17)
-    at a (/my/directory/test.js:6:9)
-    at Object.<anonymous> (/my/directory/test.js:8:13)
+    at b (/my/directory/test.js:3:17)                   👈
+    at a (/my/directory/test.js:6:9)                    👈
+    at Object.<anonymous> (/my/directory/test.js:8:13)  👈
 
     ==== Error at: ====================
     at Object.<anonymous> (/my/directory/test.js:1:13)
@@ -92,10 +91,10 @@ Both these examples show **clearly** where the *promise* is left unhandled, and 
 
 `trace-unhandled` can be used in 4 ways.
 
- * As a standalone program to bootstrap a Node.js app
- * From a CDN directly to a browser
- * Programmatically from JavaScript (either for Node.js or the web using a bundler)
- * In unit tests
+ * [As a standalone program to bootstrap a Node.js app](#as-a-standalone-program)
+ * [From a CDN directly to a browser](#in-a-website)
+ * [Programmatically from JavaScript (either for Node.js or the web using a bundler)](#programatically---api)
+ * [In unit tests](#in-unit-tests)
 
 ## As a standalone program
 
@@ -129,7 +128,7 @@ register( );
 ```
 
 
-## Use in unit tests
+## In unit tests
 
 To use this package when running `jest`, install the package and configure jest with the following setup:
 
@@ -151,7 +150,5 @@ For `mocha` you can use `--require node_modules/trace-unhandled/register.js`.
 [travis-url]: https://travis-ci.org/grantila/trace-unhandled
 [coverage-image]: https://coveralls.io/repos/github/grantila/trace-unhandled/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/grantila/trace-unhandled?branch=master
-[greenkeeper-image]: https://badges.greenkeeper.io/grantila/trace-unhandled.svg
-[greenkeeper-url]: https://greenkeeper.io/
 [lgtm-image]: https://img.shields.io/lgtm/grade/javascript/g/grantila/trace-unhandled.svg?logo=lgtm&logoWidth=18
 [lgtm-url]: https://lgtm.com/projects/g/grantila/trace-unhandled/context:javascript
