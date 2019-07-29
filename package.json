@@ -49,14 +49,14 @@
     "haxec": "^1.1.0"
   },
   "devDependencies": {
-    "@types/jest": "^20",
+    "@types/jest": "20.0.8",
     "@types/node": "^12",
     "already": "^1.8.0",
     "commitizen": "^3",
     "concurrently": "^4.1.1",
     "coveralls": "^3",
     "cz-conventional-changelog": "^2",
-    "jest": "^20",
+    "jest": "20.0.4",
     "rimraf": "^2.6.3",
     "rollup": "^1.16.3",
     "semantic-release": "^15.13.18",
