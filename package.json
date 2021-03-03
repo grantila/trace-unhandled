@@ -15,7 +15,7 @@
   "types": "./dist/index.d.ts",
   "browser": "./browser.js",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "files": [
     "dist",
@@ -24,13 +24,11 @@
     "bin.js"
   ],
   "scripts": {
-    "build:node": "node_modules/.bin/rimraf dist && node_modules/.bin/tsc -p .",
-    "build:web": "node_modules/.bin/rimraf dist-web && node_modules/.bin/tsc -p tsconfig.rollup.json",
-    "build:rollup": "node_modules/.bin/rimraf browser.js && node_modules/.bin/rollup dist-web/web/register-web.js --file browser.js --format iife",
+    "build:node": "rimraf dist && tsc -p .",
+    "build:web": "rimraf dist-web && tsc -p tsconfig.rollup.json",
+    "build:rollup": "rimraf browser.js && rollup dist-web/web/register-web.js --file browser.js --format iife",
     "build": "concurrently 'yarn build:node' 'yarn build:web' && yarn build:rollup",
     "test": "node --expose-gc node_modules/.bin/jest --coverage",
-    "travis-deploy-once": "travis-deploy-once",
-    "semantic-release": "semantic-release",
     "cz": "git-cz"
   },
   "repository": {
@@ -52,16 +50,12 @@
     "@types/jest": "20.0.8",
     "@types/node": "^12",
     "already": "^1.8.0",
-    "commitizen": "^3",
     "concurrently": "^4.1.1",
-    "coveralls": "^3",
-    "cz-conventional-changelog": "^2",
+    "cz-conventional-changelog": "^3.3.0",
     "jest": "20.0.4",
     "rimraf": "^2.6.3",
     "rollup": "^1.16.3",
-    "semantic-release": "^15.13.18",
-    "travis-deploy-once": "^5",
-    "typescript": "^3.5.2"
+    "typescript": "^3.7.4"
   },
   "config": {
     "commitizen": {

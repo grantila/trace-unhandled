@@ -2,25 +2,26 @@
 	"compilerOptions": {
 		"allowJs": false,
 		"declaration": true,
-		"lib": [ "es2015", "es2017", "dom" ],
+		"lib": [ "ES2018", "dom" ],
 		"types": [
 			"node",
 			"jest"
 		],
-		"target": "es6",
+		"target": "ES2018",
 		"module": "commonjs",
 		"outDir": "dist",
 		"moduleResolution": "node",
 		"noImplicitAny": true,
 		"noUnusedLocals": true,
 		"pretty": true,
-		"sourceMap": true,
+		"sourceMap": false,
 		"strict": true,
 		"alwaysStrict": true,
 		"allowSyntheticDefaultImports": true
 	},
 	"include": [
 		"index.ts",
-		"lib", "web/register-web.ts"
+		"lib",
+		"web/register-web.ts"
 	]
 }

@@ -3,4 +3,5 @@ node_modules/
 dist/
 dist-web/
 yarn.lock
+yarn-error.*
 browser.js
