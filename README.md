@@ -1,6 +1,6 @@
 [![npm version][npm-image]][npm-url]
 [![downloads][downloads-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![build status][build-image]][build-url]
 [![coverage status][coverage-image]][coverage-url]
 [![Language grade: JavaScript][lgtm-image]][lgtm-url]
 
@@ -159,8 +159,8 @@ For `mocha` you can use `--require node_modules/trace-unhandled/register.js`.
 [npm-image]: https://img.shields.io/npm/v/trace-unhandled.svg
 [npm-url]: https://npmjs.org/package/trace-unhandled
 [downloads-image]: https://img.shields.io/npm/dm/trace-unhandled.svg
-[travis-image]: https://img.shields.io/travis/grantila/trace-unhandled/master.svg
-[travis-url]: https://travis-ci.org/grantila/trace-unhandled
+[build-image]: https://img.shields.io/github/workflow/status/grantila/trace-unhandled/Master.svg
+[build-url]: https://github.com/grantila/trace-unhandled/actions?query=workflow%3AMaster
 [coverage-image]: https://coveralls.io/repos/github/grantila/trace-unhandled/badge.svg?branch=master
 [coverage-url]: https://coveralls.io/github/grantila/trace-unhandled?branch=master
 [lgtm-image]: https://img.shields.io/lgtm/grade/javascript/g/grantila/trace-unhandled.svg?logo=lgtm&logoWidth=18
