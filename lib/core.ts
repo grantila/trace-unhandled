@@ -54,6 +54,20 @@ function mergeErrors( traceError: Error, mainError?: Error )
 		errorLines.slice( 0, i ).reverse( ).join( "\n" );
 }
 
+function defaultLogger( msg: string )
+{
+	console.error( msg );
+}
+
+export type LoggerFunction = ( msg: string ) => void;
+
+let loggerFunction: LoggerFunction = defaultLogger;
+
+export function setLogger( loggerFn: LoggerFunction )
+{
+	loggerFunction = loggerFn ?? defaultLogger;
+}
+
 export function logger(
 	reason: Error | undefined,
 	promise: TraceablePromise< any >,
@@ -69,7 +83,7 @@ export function logger(
 
 	const prefix = pid == null ? '' : `(node:${pid}) `;
 
-	console.error(
+	loggerFunction(
 		`${prefix}UnhandledPromiseRejectionWarning\n` +
 		(
 			!promise.__tracedError

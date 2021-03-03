@@ -1,45 +1,14 @@
 
-const { Finally, Try, delay } = require( 'already' );
+const {
+	withConsoleSpy,
+	triggerUnhandledWarnings,
+	splitLines,
+	cutColumn,
+	cutLocation,
+} = require( './helpers' );
+
 require( '../register' );
 
-const withConsoleSpy = fn => async ( ) =>
-{
-	const oldError = console.error;
-	console.error = jest.fn( );
-	return Try( fn )
-		.then( ...Finally( ( ) =>
-		{
-			console.error = oldError;
-		} ) );
-}
-
-async function triggerUnhandledWarnings( )
-{
-	await delay( 0 );
-	global.gc && global.gc( );
-	await delay( 0 );
-}
-
-function splitLines( lines )
-{
-	return [ ].concat( ...lines.map( line => line.split( "\n" ) ) );
-}
-
-function cutColumn( line )
-{
-	const m = line.match( /(.*:\d+):\d+\)?$/ );
-	if ( !m )
-		return line;
-	return m[ 1 ];
-}
-
-function cutLocation( line )
-{
-	const m = line.match( /(.*):\d+:\d+\)?$/ );
-	if ( !m )
-		return line;
-	return m[ 1 ];
-}
 
 describe( "register", ( ) =>
 {
@@ -151,7 +120,7 @@ describe( "register", ( ) =>
 		const errorAndShared = splitLines( console.error.mock.calls[ 0 ] )
 			.filter( line => line );
 
-		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 2 );
+		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 1 );
 		expect( linesWoColumns[ 0 ] ).not.toBe( linesWoColumns[ 1 ] );
 
 		expect( errorAndShared[ errorAndShared.length - 2 ] ).toBe(
@@ -180,7 +149,7 @@ describe( "register", ( ) =>
 		const errorAndShared = splitLines( console.error.mock.calls[ 0 ] )
 			.filter( line => line );
 
-		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 2 );
+		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 1 );
 		expect( linesWoColumns[ 0 ] ).not.toBe( linesWoColumns[ 1 ] );
 
 		expect( errorAndShared[ errorAndShared.length - 2 ] ).toBe(

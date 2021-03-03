@@ -1,5 +1,5 @@
 
-import { logger, TraceablePromise } from "../lib/core";
+import { logger, TraceablePromise, setLogger} from "../lib/core";
 
 window.onunhandledrejection = function( event: PromiseRejectionEvent )
 {
@@ -7,3 +7,4 @@ window.onunhandledrejection = function( event: PromiseRejectionEvent )
 };
 
 ( < any >window ).Promise = TraceablePromise;
+( < any >window ).setTraceUnhandledLogger = setLogger;

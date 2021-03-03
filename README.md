@@ -111,6 +111,12 @@ You can also use `npx`:
 <head><script src="https://cdn.jsdelivr.net/npm/trace-unhandled@latest/browser.js"></script></head>
 ```
 
+To specify a custom logger function, use `setTraceUnhandledLogger`:
+
+```ts
+window.setTraceUnhandledLogger( msg => { ... } ); // msg is a string
+```
+
 
 ## Programatically - API
 
@@ -125,6 +131,13 @@ const { register } = require( 'trace-unhandled' );
 
 // ... whenever you want to start tracing
 register( );
+```
+
+To specify a custom logger function, use `setLogger`:
+
+```ts
+const { setLogger } = require( 'trace-unhandled' );
+setLogger( msg => { ... } ); // msg is a string
 ```
 
 
