@@ -44,18 +44,18 @@
     "stacktrace"
   ],
   "dependencies": {
-    "haxec": "^1.1.0"
+    "haxec": "^2.0.0"
   },
   "devDependencies": {
     "@types/jest": "20.0.8",
-    "@types/node": "^12",
-    "already": "^1.8.0",
-    "concurrently": "^4.1.1",
+    "@types/node": "^14.14.31",
+    "already": "^1.13.2",
+    "concurrently": "^6.0.0",
     "cz-conventional-changelog": "^3.3.0",
     "jest": "20.0.4",
-    "rimraf": "^2.6.3",
-    "rollup": "^1.16.3",
-    "typescript": "^3.7.4"
+    "rimraf": "^3.0.2",
+    "rollup": "^2.40.0",
+    "typescript": "^4.2.2"
   },
   "config": {
     "commitizen": {
