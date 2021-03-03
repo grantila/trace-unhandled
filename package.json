@@ -44,7 +44,7 @@
     "stacktrace"
   ],
   "dependencies": {
-    "haxec": "^2.0.0"
+    "haxec": "^2.0.1"
   },
   "devDependencies": {
     "@types/jest": "20.0.8",
