@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/trace-unhandled@latest/browser.js"></script>
+		<script x-src="./browser.js"></script>
+	</head>
+	<body>
+		<script lang="javascript">
+			const err = new Error("foo");
+			function b() {
+				return Promise.reject(err);
+			}
+			function a() {
+				return b();
+			}
+			const foo = a();
+			foo.then(()=>{});
+		</script>
+	</body>
+</html>

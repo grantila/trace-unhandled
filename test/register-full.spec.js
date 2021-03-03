@@ -7,7 +7,7 @@ const {
 	cutLocation,
 } = require( './utils' );
 
-require( '../register' );
+require( '../register-full' );
 
 
 describe( "register", ( ) =>
@@ -19,7 +19,7 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const lines = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		expect( lines.length ).toBeGreaterThanOrEqual( 2 );
@@ -35,11 +35,11 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const linesWoColumns = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		const linesWoLocation = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutLocation( line ) );
 
 		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 2 );
@@ -61,11 +61,11 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const linesWoColumns = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		const linesWoLocation = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutLocation( line ) );
 
 		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 2 );
@@ -87,11 +87,11 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const linesWoColumns = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		const linesWoLocation = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutLocation( line ) );
 
 		expect( linesWoColumns.length ).toBeGreaterThanOrEqual( 2 );
@@ -114,7 +114,7 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const linesWoColumns = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		const errorAndShared = splitLines( console.error.mock.calls[ 0 ] )
@@ -143,7 +143,7 @@ describe( "register", ( ) =>
 		await triggerUnhandledWarnings( );
 
 		const linesWoColumns = splitLines( console.error.mock.calls[ 0 ] )
-			.filter( line => line.includes( "register.spec.js" ) )
+			.filter( line => line.includes( "register-full.spec.js" ) )
 			.map( line => cutColumn( line ) );
 
 		const errorAndShared = splitLines( console.error.mock.calls[ 0 ] )
