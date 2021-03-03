@@ -74,7 +74,8 @@ export function logger(
 		(
 			!promise.__tracedError
 			? ""
-			: `[ Stacktrace altered by https://github.com/grantila/trace-unhandled ]\n`
+			: `[ Stacktrace altered by ` +
+				`https://github.com/grantila/trace-unhandled ]\n`
 		) +
 		stack
 	);
@@ -82,7 +83,7 @@ export function logger(
 
 const state: { resolve: any; reject: any; } = { resolve: null, reject: null };
 
-export type PromiseResolver< T > = ( value?: T | PromiseLike< T > ) => void;
+export type PromiseResolver< T > = ( value: T | PromiseLike< T > ) => void;
 export type PromiseRejecter = ( reason?: any ) => void;
 
 export type PromiseConstructor< T > =
